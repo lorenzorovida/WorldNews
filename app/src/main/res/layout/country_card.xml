@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        app:srcCompat="@drawable/italy"
+        app:srcCompat="@drawable/country_italy"
         android:scaleType="centerCrop"
         />
 

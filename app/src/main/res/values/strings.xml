@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">World News</string>
     <string name="pick_a_country">Pick a country</string>
+    <string name="pick_categories">Pick some categories</string>
+
+    <string name="category_sports">Sports</string>
+    <string name="category_health">Health</string>
+    <string name="welcome">Welcome!</string>
+    <string name="already_registered">Are you already registered?</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+<string name="password_forgotten">Did you forget your password?</string>
+    <string name="login">Login</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="or">OR</string>
+    <string name="health">Health</string>
+    <string name="sports">Sports</string>
+    <string name="technology">Technology</string>
+    <string name="science">Science</string>
+    <string name="general">General</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="business">Business</string>
+
 </resources>
