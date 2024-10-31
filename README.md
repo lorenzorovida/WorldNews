@@ -9,3 +9,5 @@ In questa esercitazione abbiamo creato il progetto World News da zero. In partic
 `PickACountryActivity` utilizza un ConstraintLayout per mostrare una `TextView` e un `LinearLayout`, all'interno del quale sono presenti due `CountryCard`.
 
 La `CountryCard` è definita nel file `res/layout/country_card.xml` ed è stata definita a partire dalle linee guida presenti [in questo link](https://github.com/material-components/material-components-android/blob/master/docs/components/Card.md)
+
+## Esercitazione 4 (31 ottobre)
