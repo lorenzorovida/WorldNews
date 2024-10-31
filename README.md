@@ -11,3 +11,5 @@ In questa esercitazione abbiamo creato il progetto World News da zero. In partic
 La `CountryCard` è definita nel file `res/layout/country_card.xml` ed è stata definita a partire dalle linee guida presenti [in questo link](https://github.com/material-components/material-components-android/blob/master/docs/components/Card.md)
 
 ## Esercitazione 4 (31 ottobre)
+
+In questa esercitazione abbiamo concluso la pagina `PickACountryActivity` e creato le pagine `PickCategoriesActivity` e `LoginActivity`
