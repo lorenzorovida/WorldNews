@@ -1,5 +1,7 @@
 # World-News
 
+Questa applicazione sarà un client per poter visualizzare dati recuperati da [News API](https://newsapi.org)
+
 ## Esercitazione 3 (24 ottobre)
 
 In questa esercitazione abbiamo creato il progetto World News da zero. In particolare, è stato importato un foglio di stile da [questo sito](https://material-foundation.github.io/material-theme-builder/) e successivamente è stata creata la pagina `PickACountryActivity`
@@ -13,3 +15,5 @@ La `CountryCard` è definita nel file `res/layout/country_card.xml` ed è stata 
 ## Esercitazione 4 (31 ottobre)
 
 In questa esercitazione abbiamo concluso la pagina `PickACountryActivity` e creato le pagine `PickCategoriesActivity` e `LoginActivity`
+
+Le tre pagine serviranno per fare il login, e successivamente scegliere una nazione di riferimento e una serie di categorie.
