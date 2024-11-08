@@ -1,4 +1,6 @@
 <resources>
+    <color name="white">#FFF</color>
+    <color name="white_half_transparent">#80FFFFFF</color>
     <color name="md_theme_primary">#904760</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#FFB0C7</color>

@@ -9,7 +9,7 @@
     <string name="already_registered">Are you already registered?</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
-<string name="password_forgotten">Did you forget your password?</string>
+    <string name="password_forgotten">Did you forget your password?</string>
     <string name="login">Login</string>
     <string name="login_with_google">Login with Google</string>
     <string name="or">OR</string>
@@ -20,5 +20,30 @@
     <string name="general">General</string>
     <string name="entertainment">Entertainment</string>
     <string name="business">Business</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="categories">
+        <item>Health</item>
+        <item>Sports</item>
+        <item>Technology</item>
+        <item>Science</item>
+        <item>General</item>
+        <item>Entertainment</item>
+        <item>Business</item>
+    </string-array>
+
+    <string-array name="countries">
+        <item>Italy</item>
+        <item>Spain</item>
+        <item>France</item>
+    </string-array>
+
+    <string name="KEY_SAVED_COUNTRY">KEY_SAVED_COUNTRY</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- Errors -->
+    <string name="error_email_login">Check the email address</string>
+    <string name="error_password_login">The password must have at least 8 characters</string>
 
 </resources>

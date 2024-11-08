@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_business"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_business"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
@@ -24,6 +21,7 @@
                 android:layout_height="140dp"
                 android:src="@drawable/category_business"
                 android:scaleType="centerCrop"
+                android:id="@+id/imageView"
                 android:backgroundTint="@color/design_default_color_primary"
                 />
 
@@ -38,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/business"
+                    android:id="@+id/textView"
                     android:textAppearance="?attr/textAppearanceTitleMedium"
                     />
 
@@ -46,5 +45,3 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-</FrameLayout>

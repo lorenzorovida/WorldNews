@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_titles">
+        <item>Health</item>
+        <item>Sports</item>
+        <item>General</item>
+        <item>Entertainment</item>
+        <item>Business</item>
+        <item>Science</item>
+        <item>Technology</item>
+    </string-array>
+
+    <array name="category_icons">
+        <item>@drawable/category_health</item>
+        <item>@drawable/category_sports</item>
+        <item>@drawable/category_general</item>
+        <item>@drawable/category_entertainment</item>
+        <item>@drawable/category_business</item>
+        <item>@drawable/category_science</item>
+        <item>@drawable/category_technology</item>
+    </array>
+</resources>
