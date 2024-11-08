@@ -17,3 +17,10 @@ La `CountryCard` è definita nel file `res/layout/country_card.xml` ed è stata 
 In questa esercitazione abbiamo concluso la pagina `PickACountryActivity` e creato le pagine `PickCategoriesActivity` e `LoginActivity`
 
 Le tre pagine serviranno per fare il login, e successivamente scegliere una nazione di riferimento e una serie di categorie.
+
+
+## Esercitazione 5 (7 novembre)
+
+In questa esercitazione abbiamo introdotto gli `Intent` come oggetti che permettono la comunicazione fra elementi dell'applicazione (`Intent` espliciti) e, più in generale, del sistema operativo (`Intent` impliciti). Inoltre abbiamo introdotto il `Navigation Graph` per la gestione dei `Fragment`. 
+
+N.B. La versione del codice non è esattamente quella con cui si è conclusa l'esercitazione, in particolare `PickACountryActivity` e `PickCategoriesActivity` sono state trasformate in `Fragment`
