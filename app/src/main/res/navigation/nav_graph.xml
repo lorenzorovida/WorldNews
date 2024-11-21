@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.unimib.worldnews.ui.welcome.fragments.LoginFragment"
+        android:name="com.unimib.worldnews.ui.welcome.fragment.LoginFragment"
         tools:layout="@layout/fragment_login"
         android:label="LoginFragment" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/pickCountryFragment"
-        android:name="com.unimib.worldnews.ui.welcome.fragments.PickCountryFragment"
+        android:name="com.unimib.worldnews.ui.welcome.fragment.PickCountryFragment"
         android:label="PickCountryFragment"
         tools:layout="@layout/fragment_pick_country">
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/pickCategoriesFragment"
-        android:name="com.unimib.worldnews.ui.welcome.fragments.PickCategoriesFragment"
+        android:name="com.unimib.worldnews.ui.welcome.fragment.PickCategoriesFragment"
         tools:layout="@layout/fragment_pick_categories"
         android:label="PickCountryFragment" />
 </navigation>

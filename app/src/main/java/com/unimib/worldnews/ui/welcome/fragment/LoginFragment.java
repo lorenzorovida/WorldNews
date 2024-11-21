@@ -1,4 +1,4 @@
-package com.unimib.worldnews.ui.welcome.fragments;
+package com.unimib.worldnews.ui.welcome.fragment;
 
 import android.os.Bundle;
 
@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.unimib.worldnews.R;
-
-import org.apache.commons.validator.routines.EmailValidator;
 
 public class LoginFragment extends Fragment {
 
