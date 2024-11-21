@@ -13,7 +13,7 @@
 
     <!-- Media -->
     <ImageView
-        android:id="@+id/image_country"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
         app:srcCompat="@drawable/country_italy"
@@ -31,7 +31,6 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titolo"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             />
 

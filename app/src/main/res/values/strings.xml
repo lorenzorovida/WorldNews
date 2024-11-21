@@ -22,24 +22,6 @@
     <string name="business">Business</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string-array name="categories">
-        <item>Health</item>
-        <item>Sports</item>
-        <item>Technology</item>
-        <item>Science</item>
-        <item>General</item>
-        <item>Entertainment</item>
-        <item>Business</item>
-    </string-array>
-
-    <string-array name="countries">
-        <item>Italy</item>
-        <item>Spain</item>
-        <item>France</item>
-    </string-array>
-
-    <string name="KEY_SAVED_COUNTRY">KEY_SAVED_COUNTRY</string>
     <string name="confirm">Confirm</string>
 
     <!-- Errors -->
