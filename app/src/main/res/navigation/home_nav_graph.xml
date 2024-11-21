@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph"
+    app:startDestination="@id/preferenceNewsFragment">
+
+    <fragment
+        android:id="@+id/preferenceNewsFragment"
+        android:name="com.unimib.worldnews.ui.home.fragment.PreferenceNewsFragment"
+        android:label="fragment_preference_news"
+        tools:layout="@layout/fragment_preference_news" />
+    <fragment
+        android:id="@+id/popularNewsFragment"
+        android:name="com.unimib.worldnews.ui.home.fragment.PopularNewsFragment"
+        android:label="fragment_popular_news"
+        tools:layout="@layout/fragment_popular_news" />
+    <fragment
+        android:id="@+id/searchNewsFragment"
+        android:name="com.unimib.worldnews.ui.home.fragment.SearchNewsFragment"
+        android:label="fragment_search_news"
+        tools:layout="@layout/fragment_search_news" />
+    <fragment
+        android:id="@+id/favoriteNewsFragment"
+        android:name="com.unimib.worldnews.ui.home.fragment.FavoriteNewsFragment"
+        android:label="fragment_favorite_news"
+        tools:layout="@layout/fragment_favorite_news" />
+</navigation>

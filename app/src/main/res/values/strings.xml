@@ -3,8 +3,6 @@
     <string name="pick_a_country">Pick a country</string>
     <string name="pick_categories">Pick some categories</string>
 
-    <string name="category_sports">Sports</string>
-    <string name="category_health">Health</string>
     <string name="welcome">Welcome!</string>
     <string name="already_registered">Are you already registered?</string>
     <string name="email">E-mail</string>
@@ -23,6 +21,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="confirm">Confirm</string>
+
+    <string name="countries_france">France</string>
+    <string name="countries_italy">Italy</string>
+    <string name="countries_germany">Germany</string>
+    <string name="countries_spain">Spain</string>
+    <string name="countries_unitedkingdom">United Kingdom</string>
+
+    <string name="category_business">Business</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_general">General</string>
+    <string name="category_health">Health</string>
+    <string name="category_science">Science</string>
+    <string name="category_sports">Sports</string>
+    <string name="category_technology">Technology</string>
+
 
     <!-- Errors -->
     <string name="error_email_login">Check the email address</string>

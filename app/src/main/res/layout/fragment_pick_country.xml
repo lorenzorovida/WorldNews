@@ -32,36 +32,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <GridLayout
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_tiny"
         android:layout_marginEnd="@dimen/margin_tiny"
         android:layout_marginTop="@dimen/margin_medium"
         android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:id="@+id/gridLayout"
-        android:columnCount="2"
+        android:numColumns="2"
+        android:horizontalSpacing="@dimen/margin_small"
+        android:verticalSpacing="@dimen/margin_small"
+        android:id="@+id/gridView"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1">
 
-            <include layout="@layout/card_country" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1">
-
-            <include layout="@layout/card_country" />
-
-        </FrameLayout>
-
-    </GridLayout>
+    </GridView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

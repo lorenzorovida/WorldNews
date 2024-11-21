@@ -31,28 +31,25 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        tools:layout_editor_absoluteX="4dp">
 
 
-        <GridLayout
-            android:id="@+id/gridLayout"
+        <GridView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2"
             android:layout_marginStart="@dimen/margin_tiny"
             android:layout_marginEnd="@dimen/margin_tiny"
-            android:paddingBottom="100dp">
+            android:layout_marginTop="@dimen/margin_medium"
+            android:baselineAligned="false"
+            android:numColumns="2"
+            android:horizontalSpacing="@dimen/margin_small"
+            android:verticalSpacing="@dimen/margin_small"
+            android:id="@+id/gridView"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
-        </GridLayout>
 
-    </ScrollView>
+        </GridView>
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/floatingActionButton"
