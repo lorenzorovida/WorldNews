@@ -24,3 +24,10 @@ Le tre pagine serviranno per fare il login, e successivamente scegliere una nazi
 In questa esercitazione abbiamo introdotto gli `Intent` come oggetti che permettono la comunicazione fra elementi dell'applicazione (`Intent` espliciti) e, più in generale, del sistema operativo (`Intent` impliciti). Inoltre abbiamo introdotto il `Navigation Graph` per la gestione dei `Fragment`. 
 
 N.B. La versione del codice non è esattamente quella con cui si è conclusa l'esercitazione, in particolare `PickACountryActivity` e `PickCategoriesActivity` sono state trasformate in `Fragment`
+
+## Esercitazione 6 (21 novembre)
+
+## Esercitazione 7 (28 novembre)
+
+In questa esercitazione abbiamo introdotto la `RecyclerView` come alternativa efficient alla `ListView`. Successivamente, abbiamo visto come poter fare il parsing di un oggetto JSON generato da una chiamata API al sito NewsAPI. Abbiamo mostrato i risultati del JSON all'interno della RecyclerView utilizzando il relativo adapter e delle card generate a partire da `card_news.xml`. Infine, abbiamo associato un database alla classe `Article` e abbiamo utilizzato il DB per aggiungere degli articoli ai preferiti. 
+N.B. il codice ha delle piccole modifiche rispetto alla versione scritta ad esercitazione, vedremo queste modifiche settimana prossima
