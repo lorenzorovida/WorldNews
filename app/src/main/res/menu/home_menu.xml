@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/preferenceNewsFragment"
-        android:title="A"
+        android:title="@string/preferences"
         android:icon="@drawable/baseline_newspaper_24"
         />
 
     <item
         android:id="@+id/popularNewsFragment"
-        android:title="B"
-        android:icon="@drawable/baseline_newspaper_24"
+        android:title="@string/popular"
+        android:icon="@drawable/baseline_trending_up_24"
 
         />
 
     <item
         android:id="@+id/searchNewsFragment"
-        android:title="C"
-        android:icon="@drawable/baseline_newspaper_24"
+        android:title="@string/search"
+        android:icon="@drawable/baseline_search_24"
         />
 
     <item
         android:id="@+id/favoriteNewsFragment"
-        android:title="D"
-        android:icon="@drawable/baseline_newspaper_24"
+        android:title="@string/favorite"
+        android:icon="@drawable/baseline_favorite_24"
         />
 </menu>

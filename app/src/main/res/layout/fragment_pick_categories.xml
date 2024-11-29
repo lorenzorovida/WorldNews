@@ -36,13 +36,13 @@
         <GridView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_tiny"
-            android:layout_marginEnd="@dimen/margin_tiny"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             android:baselineAligned="false"
             android:numColumns="2"
-            android:horizontalSpacing="@dimen/margin_small"
-            android:verticalSpacing="@dimen/margin_small"
+            android:horizontalSpacing="@dimen/margin_medium"
+            android:verticalSpacing="@dimen/margin_medium"
             android:id="@+id/gridView"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 

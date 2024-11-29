@@ -3,12 +3,25 @@ package com.unimib.worldnews.ui.home.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.unimib.worldnews.R;
+import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
+import com.unimib.worldnews.database.ArticleRoomDatabase;
+import com.unimib.worldnews.model.Article;
+import com.unimib.worldnews.model.ArticleAPIResponse;
+import com.unimib.worldnews.util.Constants;
+import com.unimib.worldnews.util.JSONParserUtils;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,50 +30,52 @@ import com.unimib.worldnews.R;
  */
 public class PreferenceNewsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public static final String TAG = PreferenceNewsFragment.class.getName();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public PreferenceNewsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PreferenceNewsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PreferenceNewsFragment newInstance(String param1, String param2) {
-        PreferenceNewsFragment fragment = new PreferenceNewsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_preference_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_preference_news, container, false);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
+
+        try {
+            ArticleAPIResponse response = jsonParserUtils.parseJSONFileWithGSon(Constants.SAMPLE_JSON_FILENAME);
+
+            ArticleRoomDatabase.getDatabase(getContext()).newsDao().insertAll(response.getArticles());
+
+            List<Article> articleList = ArticleRoomDatabase.getDatabase(getContext()).newsDao().getAll();
+
+            ArticleRecyclerAdapter adapter =
+                    new ArticleRecyclerAdapter(R.layout.card_article, articleList, true);
+
+            recyclerView.setAdapter(adapter);
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return view;
     }
 }

@@ -40,5 +40,9 @@
     <!-- Errors -->
     <string name="error_email_login">Check the email address</string>
     <string name="error_password_login">The password must have at least 8 characters</string>
+    <string name="preferences">Preferences</string>
+    <string name="popular">Popular</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
 
 </resources>
