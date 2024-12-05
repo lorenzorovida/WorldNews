@@ -50,6 +50,7 @@ dependencies {
     annotationProcessor(libs.room.compiler)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
     implementation(libs.shimmer)

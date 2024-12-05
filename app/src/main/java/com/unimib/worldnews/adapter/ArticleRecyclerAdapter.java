@@ -1,15 +1,20 @@
 package com.unimib.worldnews.adapter;
 
 
+import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.shimmer.Shimmer;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.unimib.worldnews.R;
@@ -25,12 +30,14 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
     private int layout;
     private List<Article> articleList;
     private boolean heartVisible;
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewTitle;
         private final TextView textViewAuthor;
         private final TextView textViewTime;
         private final CheckBox favoriteCheckbox;
+        private final ImageView imageView;
 
         public ViewHolder(View view) {
             super(view);
@@ -39,6 +46,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
             textViewAuthor =  view.findViewById(R.id.textViewAuthor);
             textViewTime = view.findViewById(R.id.textViewTime);
             favoriteCheckbox = view.findViewById(R.id.favoriteButton);
+            imageView = view.findViewById(R.id.imageView);
         }
 
         public TextView getTextViewTitle() {
@@ -57,6 +65,8 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
             return favoriteCheckbox;
         }
 
+        public ImageView getImageView() { return  imageView; }
+
     }
 
     public ArticleRecyclerAdapter(int layout, List<Article> articleList, boolean heartVisible) {
@@ -72,6 +82,8 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(layout, viewGroup, false);
 
+        if (this.context == null) this.context = viewGroup.getContext();
+
         return new ViewHolder(view);
     }
 
@@ -81,6 +93,11 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         viewHolder.getTextViewAuthor().setText(articleList.get(position).getAuthor());
         viewHolder.getFavoriteCheckbox().setChecked(articleList.get(position).getLiked());
         viewHolder.getTextViewTime().setText(DateTimeUtil.getDateDelta(articleList.get(position).getPublishedAt()));
+
+        Glide.with(context)
+                .load(articleList.get(position).getUrlToImage())
+                .placeholder(new ColorDrawable(context.getColor(R.color.placeholder_gray)))
+                .into(viewHolder.getImageView());
 
         viewHolder.getFavoriteCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -1,4 +1,5 @@
 <resources>
+    <color name="placeholder_gray">#A9A9A9</color>
     <color name="white">#FFF</color>
     <color name="white_half_transparent">#80FFFFFF</color>
     <color name="md_theme_primary">#904760</color>
