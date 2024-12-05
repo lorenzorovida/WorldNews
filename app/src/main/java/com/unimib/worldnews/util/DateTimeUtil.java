@@ -1,10 +1,8 @@
 package com.unimib.worldnews.util;
 
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -72,9 +70,6 @@ public class DateTimeUtil {
         try {
             parsedDate = simpleDateFormat.parse(dateTime);
             Long delta = System.currentTimeMillis() - parsedDate.getTime();
-
-            Log.i("AA", delta + "");
-            Log.i("AA", parsedDate.toString());
 
             if (delta < 1000 * 60) {
                 //Meno di un min

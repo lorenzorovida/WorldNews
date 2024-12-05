@@ -14,11 +14,19 @@ import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
+import com.unimib.worldnews.repository.ArticleMockRepository;
+import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.IArticleRepository;
+import com.unimib.worldnews.util.ResponseCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteNewsFragment extends Fragment {
+public class FavoriteNewsFragment extends Fragment implements ResponseCallback {
 
+    private IArticleRepository articleRepository;
+    private List<Article> articleList;
+    private ArticleRecyclerAdapter adapter;
 
     public FavoriteNewsFragment() {
         // Required empty public constructor
@@ -27,6 +35,14 @@ public class FavoriteNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        articleList = new ArrayList<>();
+
+        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
+            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
+        } else {
+            articleRepository = new ArticleRepository(requireActivity().getApplication(), this);
+        }
     }
 
     @Override
@@ -37,16 +53,30 @@ public class FavoriteNewsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        List<Article> articleList =
-                ArticleRoomDatabase.getDatabase(getContext())
-                        .articleDao().getLiked();
+        articleRepository.getFavoriteArticles();
 
-        ArticleRecyclerAdapter adapter =
-                    new ArticleRecyclerAdapter(R.layout.card_article, articleList, false);
+        adapter = new ArticleRecyclerAdapter(R.layout.card_article, articleList, false);
 
         recyclerView.setAdapter(adapter);
 
         return view;
+
+    }
+
+    @Override
+    public void onSuccess(List<Article> articlesList, long lastUpdate) {
+        this.articleList.clear();
+        this.articleList.addAll(articlesList);
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
 
     }
 }

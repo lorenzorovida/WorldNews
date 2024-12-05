@@ -28,12 +28,6 @@ public class ServiceLocator {
         return INSTANCE;
     }
 
-    /**
-     * It creates an instance of NewsApiService using Retrofit.
-     *
-     * @return an instance of NewsApiService.
-     */
-
     OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
@@ -51,7 +45,7 @@ public class ServiceLocator {
         return retrofit.create(ArticleAPIService.class);
     }
 
-    public ArticleRoomDatabase getNewsDao(Application application) {
+    public ArticleRoomDatabase getArticlesDB(Application application) {
         return ArticleRoomDatabase.getDatabase(application);
     }
 }

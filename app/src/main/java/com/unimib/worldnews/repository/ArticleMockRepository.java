@@ -8,6 +8,7 @@ import com.unimib.worldnews.database.ArticleDAO;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.ArticleAPIResponse;
+import com.unimib.worldnews.service.ServiceLocator;
 import com.unimib.worldnews.util.Constants;
 import com.unimib.worldnews.util.JSONParserUtils;
 import com.unimib.worldnews.util.ResponseCallback;
@@ -23,8 +24,7 @@ public class ArticleMockRepository implements IArticleRepository {
     public ArticleMockRepository(Application application, ResponseCallback responseCallback) {
         this.application = application;
         this.responseCallback = responseCallback;
-        ArticleRoomDatabase newsRoomDatabase = ArticleRoomDatabase.getDatabase(application.getApplicationContext());
-        this.articleDao = newsRoomDatabase.articleDao();
+        this.articleDao = ServiceLocator.getInstance().getArticlesDB(application).articleDao();
     }
 
     @Override

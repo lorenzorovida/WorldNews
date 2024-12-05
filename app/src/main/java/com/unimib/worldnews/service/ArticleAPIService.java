@@ -9,9 +9,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
 
-/**
- * Interface for Service to get news from the Web Service.
- */
 public interface ArticleAPIService {
     @GET(TOP_HEADLINES_ENDPOINT)
     Call<ArticleAPIResponse> getArticles(

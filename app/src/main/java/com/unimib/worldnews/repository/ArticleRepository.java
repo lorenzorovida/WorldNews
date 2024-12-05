@@ -1,16 +1,12 @@
 package com.unimib.worldnews.repository;
 
 import static com.unimib.worldnews.util.Constants.FRESH_TIMEOUT;
-import static com.unimib.worldnews.util.Constants.TOP_HEADLINES_PAGE_SIZE_VALUE;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleDAO;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
@@ -18,9 +14,9 @@ import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.ArticleAPIResponse;
 import com.unimib.worldnews.service.ArticleAPIService;
 import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.util.Constants;
 import com.unimib.worldnews.util.ResponseCallback;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,11 +32,10 @@ public class ArticleRepository implements IArticleRepository {
     private final ArticleDAO articleDAO;
     private final ResponseCallback responseCallback;
 
-    public ArticleRepository(Application application, ResponseCallback responseCallback, View snackBarView) {
+    public ArticleRepository(Application application, ResponseCallback responseCallback) {
         this.application = application;
         this.articleAPIService = ServiceLocator.getInstance().getArticleAPIService();
-        ArticleRoomDatabase articleRoomDatabase = ServiceLocator.getInstance().getNewsDao(application);
-        this.articleDAO = articleRoomDatabase.articleDao();
+        this.articleDAO = ServiceLocator.getInstance().getArticlesDB(application).articleDao();
         this.responseCallback = responseCallback;
     }
 
@@ -53,6 +48,7 @@ public class ArticleRepository implements IArticleRepository {
         // of the news has been performed more than FRESH_TIMEOUT value ago
         if (currentTime - lastUpdate > FRESH_TIMEOUT) {
             Call<ArticleAPIResponse> articleResponseCall = articleAPIService.getArticles(country,
+                    Constants.TOP_HEADLINES_PAGE_SIZE_VALUE,
                     application.getString(R.string.news_api_key));
 
             articleResponseCall.enqueue(new Callback<ArticleAPIResponse>() {

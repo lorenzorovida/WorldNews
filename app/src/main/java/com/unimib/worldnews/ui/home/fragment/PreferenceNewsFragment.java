@@ -51,18 +51,18 @@ public class PreferenceNewsFragment extends Fragment implements ResponseCallback
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
+            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
+        } else {
+            articleRepository = new ArticleRepository(requireActivity().getApplication(), this);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preference_news, container, false);
-
-        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
-            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
-        } else {
-            articleRepository = new ArticleRepository(requireActivity().getApplication(), this, view);
-        }
 
         shimmerLinearLayout = view.findViewById(R.id.shimmerLinearLayout);
         noInternetView = view.findViewById(R.id.noInternetMessage);
