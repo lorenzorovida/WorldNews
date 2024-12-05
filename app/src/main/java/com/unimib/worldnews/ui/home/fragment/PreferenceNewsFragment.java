@@ -3,34 +3,44 @@ package com.unimib.worldnews.ui.home.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
-import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
-import com.unimib.worldnews.model.ArticleAPIResponse;
+import com.unimib.worldnews.repository.ArticleMockRepository;
+import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.IArticleRepository;
 import com.unimib.worldnews.util.Constants;
-import com.unimib.worldnews.util.JSONParserUtils;
+import com.unimib.worldnews.util.NetworkUtil;
+import com.unimib.worldnews.util.ResponseCallback;
+import com.unimib.worldnews.util.SharedPreferencesUtils;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PreferenceNewsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PreferenceNewsFragment extends Fragment {
+public class PreferenceNewsFragment extends Fragment implements ResponseCallback {
 
     public static final String TAG = PreferenceNewsFragment.class.getName();
+
+    private static final int viewedElements = 20;
+    private ArticleRecyclerAdapter articleRecyclerAdapter;
+    private List<Article> articleList;
+    private IArticleRepository articleRepository;
+    private SharedPreferencesUtils sharedPreferencesUtils;
+
+    private LinearLayout shimmerLinearLayout;
+    private RecyclerView recyclerView;
+    private FrameLayout noInternetView;
+
 
 
     public PreferenceNewsFragment() {
@@ -41,7 +51,6 @@ public class PreferenceNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -49,33 +58,65 @@ public class PreferenceNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preference_news, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
+            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
+        } else {
+            articleRepository = new ArticleRepository(requireActivity().getApplication(), this, view);
+        }
+
+        shimmerLinearLayout = view.findViewById(R.id.shimmerLinearLayout);
+        noInternetView = view.findViewById(R.id.noInternetMessage);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        articleList = new ArrayList<>();
+        for (int i = 0; i < viewedElements; i++) articleList.add(Article.getSampleArticle());
 
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        articleRecyclerAdapter =
+                new ArticleRecyclerAdapter(R.layout.card_article, articleList, true);
 
-        JSONParserUtils jsonParserUtils = new JSONParserUtils(getContext());
+        recyclerView.setAdapter(articleRecyclerAdapter);
 
-        try {
-            ArticleAPIResponse response = jsonParserUtils.parseJSONFileWithGSon(Constants.SAMPLE_JSON_FILENAME);
+        String lastUpdate = "0";
 
-            ArticleRoomDatabase.getDatabase(getContext()).newsDao().insertAll(response.getArticles());
+        sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
+        if (sharedPreferencesUtils.readStringData(
+                Constants.SHARED_PREFERENCES_FILENAME, Constants.SHARED_PREFERNECES_LAST_UPDATE) != null) {
+            lastUpdate = sharedPreferencesUtils.readStringData(
+                    Constants.SHARED_PREFERENCES_FILENAME, Constants.SHARED_PREFERNECES_LAST_UPDATE);
+        }
 
-            List<Article> articleList = ArticleRoomDatabase.getDatabase(getContext()).newsDao().getAll();
+        articleRepository.fetchArticles("us", Constants.TOP_HEADLINES_PAGE_SIZE_VALUE, Long.parseLong(lastUpdate));
 
-            ArticleRecyclerAdapter adapter =
-                    new ArticleRecyclerAdapter(R.layout.card_article, articleList, true);
-
-            recyclerView.setAdapter(adapter);
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (!NetworkUtil.isInternetAvailable(getContext())) {
+            noInternetView.setVisibility(View.VISIBLE);
         }
 
         return view;
     }
+
+    @Override
+    public void onSuccess(List<Article> articleList, long lastUpdate) {
+        sharedPreferencesUtils.writeStringData(Constants.SHARED_PREFERENCES_FILENAME,
+                Constants.SHARED_PREFERNECES_LAST_UPDATE,
+                String.valueOf(lastUpdate));
+        this.articleList.clear();
+        this.articleList.addAll(articleList);
+        requireActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                articleRecyclerAdapter.notifyDataSetChanged();
+                recyclerView.setVisibility(View.VISIBLE);
+                shimmerLinearLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    public void onFailure(String errorMessage) {
+        Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                errorMessage, Snackbar.LENGTH_LONG).show();
+    }
+
 }

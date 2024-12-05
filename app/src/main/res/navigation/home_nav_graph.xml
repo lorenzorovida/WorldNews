@@ -8,21 +8,21 @@
     <fragment
         android:id="@+id/preferenceNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.PreferenceNewsFragment"
-        android:label="Preferences"
+        android:label="@string/preferences"
         tools:layout="@layout/fragment_preference_news" />
     <fragment
         android:id="@+id/popularNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.PopularNewsFragment"
-        android:label="Popular"
+        android:label="@string/popular"
         tools:layout="@layout/fragment_popular_news" />
     <fragment
         android:id="@+id/searchNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.SearchNewsFragment"
-        android:label="Search"
+        android:label="@string/search"
         tools:layout="@layout/fragment_search_news" />
     <fragment
         android:id="@+id/favoriteNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.FavoriteNewsFragment"
-        android:label="Favorite"
+        android:label="@string/favorite"
         tools:layout="@layout/fragment_favorite_news" />
 </navigation>

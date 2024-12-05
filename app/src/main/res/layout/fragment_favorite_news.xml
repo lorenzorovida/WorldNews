@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/recyclerView"
-        android:padding="@dimen/margin_medium"
+        android:padding="@dimen/margin_small"
         />
 
 </FrameLayout>

@@ -9,8 +9,38 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/recyclerView"
-        android:padding="@dimen/margin_medium"
-
+        android:padding="@dimen/margin_small"
+        android:visibility="gone"
         />
+
+    <LinearLayout
+        android:id="@+id/shimmerLinearLayout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="@dimen/margin_small"
+        android:visibility="visible"
+        android:orientation="vertical"
+        >
+
+        <include layout="@layout/card_article_placeholder"/>
+        <include layout="@layout/card_article_placeholder"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="?attr/colorOnSurface"
+        android:layout_gravity="top|center"
+        android:visibility="invisible"
+        android:id="@+id/noInternetMessage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:text="No internet connection" />
+    </FrameLayout>
 
 </FrameLayout>

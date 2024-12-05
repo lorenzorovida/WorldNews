@@ -77,9 +77,20 @@ public class Constants {
     public static final String SHARED_PREFERENCES_FILENAME = "com.unimib.worldnews.preferences";
     public static final String SHARED_PREFERENCES_COUNTRY_OF_INTEREST = "country_of_interest";
     public static final String SHARED_PREFERENCES_CATEGORIES_OF_INTEREST = "categories_of_interest";
+    public static final String SHARED_PREFERNECES_LAST_UPDATE = "last_update";
 
     public static final String SAMPLE_JSON_FILENAME = "sample_api_response.json";
 
     public static final int DATABASE_VERSION = 1;
     public static final String SAVED_ARTICLES_DATABASE = "saved_db";
+
+    public static final String NEWS_API_BASE_URL = "https://newsapi.org/v2/";
+    public static final String TOP_HEADLINES_ENDPOINT = "top-headlines";
+    public static final String TOP_HEADLINES_COUNTRY_PARAMETER = "country";
+    public static final String TOP_HEADLINES_PAGE_SIZE_PARAMETER = "pageSize";
+    public static final int TOP_HEADLINES_PAGE_SIZE_VALUE = 100;
+
+    public static final String REMOVED_ARTICLE_TITLE = "[Removed]";
+
+    public static final int FRESH_TIMEOUT = 1000 * 60; // 1 minute in milliseconds
 }

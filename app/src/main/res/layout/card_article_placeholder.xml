@@ -1,0 +1,218 @@
+<com.google.android.material.card.MaterialCardView android:id="@+id/card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    android:background="#00000000"
+    app:strokeWidth="0dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00ffffff"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            app:cardCornerRadius="25dp"
+            android:layout_margin="@dimen/margin_small"
+            app:strokeWidth="0dp">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                tools:duration="800"
+                android:id="@+id/shimmerImageView"
+                app:shimmer_base_alpha="0.3"
+                app:shimmer_highlight_alpha="0.7"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:scaleType="centerCrop"
+                    android:src="#22000000"
+                    />
+
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_small">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:duration="800"
+                android:id="@+id/shimmerTextViewTitle"
+                app:shimmer_base_alpha="0.3"
+                app:shimmer_highlight_alpha="0.7"
+                >
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Titolo abbastanza lunghetto tatata"
+                android:textColor="#00ffffff"
+                android:background="#22000000"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:duration="800"
+                android:layout_marginTop="3dp"
+                app:shimmer_base_alpha="0.3"
+                app:shimmer_highlight_alpha="0.7"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Titolo abbastanza lunghetto tatata"
+                    android:textColor="#00ffffff"
+                    android:background="#22000000"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:duration="800"
+                android:layout_marginTop="3dp"
+                app:shimmer_base_alpha="0.3"
+                app:shimmer_highlight_alpha="0.7"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Titolo abbastanza lunghetto"
+                    android:textColor="#00ffffff"
+                    android:background="#22000000"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:duration="800"
+                android:id="@+id/shimmerTextViewAuthor"
+                app:shimmer_base_alpha="0.3"
+                app:shimmer_highlight_alpha="0.7"
+                >
+
+            <TextView
+                android:id="@+id/textViewAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:text="Titolo abbastanza"
+                android:textColor="#00ffffff"
+                android:background="#22000000"
+                android:textStyle="normal"
+                />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:orientation="horizontal">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:duration="800"
+                    android:id="@+id/shimmerTextViewTime"
+                    app:shimmer_base_alpha="0.3"
+                    app:shimmer_highlight_alpha="0.7"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                <TextView
+                    android:id="@+id/textViewTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2hh"
+                    android:textColor="#00ffffff"
+                    android:background="#22000000"
+                     />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/shimmerFavoriteButton"
+                    tools:duration="800"
+                    app:shimmer_base_alpha="0.3"
+                    app:shimmer_highlight_alpha="0.7"
+                    app:layout_constraintEnd_toStartOf="@+id/shimmerButtonMenu"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                <CheckBox
+                    android:clickable="false"
+                    android:id="@+id/favoriteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_favorite"
+                    />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerButtonMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:duration="800"
+                    app:shimmer_base_alpha="0.3"
+                    app:shimmer_highlight_alpha="0.7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                <Button
+                    android:id="@+id/buttonMenu"
+                    android:clickable="false"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/baseline_more_vert_24"
+                     />
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

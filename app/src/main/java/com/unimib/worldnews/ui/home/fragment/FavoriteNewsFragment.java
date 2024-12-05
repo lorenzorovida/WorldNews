@@ -14,11 +14,7 @@ import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
-import com.unimib.worldnews.model.ArticleAPIResponse;
-import com.unimib.worldnews.util.Constants;
-import com.unimib.worldnews.util.JSONParserUtils;
 
-import java.io.IOException;
 import java.util.List;
 
 public class FavoriteNewsFragment extends Fragment {
@@ -43,7 +39,7 @@ public class FavoriteNewsFragment extends Fragment {
 
         List<Article> articleList =
                 ArticleRoomDatabase.getDatabase(getContext())
-                        .newsDao().getLiked();
+                        .articleDao().getLiked();
 
         ArticleRecyclerAdapter adapter =
                     new ArticleRecyclerAdapter(R.layout.card_article, articleList, false);

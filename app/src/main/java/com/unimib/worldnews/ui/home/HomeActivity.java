@@ -5,19 +5,14 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
-import com.unimib.worldnews.util.Constants;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -44,7 +39,5 @@ public class HomeActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNav, navController);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        ArticleRoomDatabase.getDatabase(getApplicationContext()).newsDao().deleteAll();
     }
 }

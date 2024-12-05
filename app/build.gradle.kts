@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -14,6 +16,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue("string", "news_api_key", gradleLocalProperties(rootDir, providers).getProperty("newsapi_key"))
+        resValue("bool", "debug_mode", gradleLocalProperties(rootDir, providers).getProperty("debug_mode"))
     }
 
     buildTypes {
@@ -43,7 +48,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
+
+    implementation(libs.shimmer)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

@@ -22,9 +22,11 @@ import java.util.concurrent.Executors;
 @Database(entities = {Article.class}, version = DATABASE_VERSION, exportSchema = true)
 public abstract class ArticleRoomDatabase extends RoomDatabase {
 
-    public abstract ArticleDAO newsDao();
+    public abstract ArticleDAO articleDao();
 
     private static volatile ArticleRoomDatabase INSTANCE;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     public static ArticleRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
