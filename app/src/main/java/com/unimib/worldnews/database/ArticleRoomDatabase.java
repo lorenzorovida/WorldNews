@@ -15,10 +15,6 @@ import com.unimib.worldnews.model.Article;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Main access point for the underlying connection to the local database.
- * <a href="https://developer.android.com/reference/kotlin/androidx/room/Database">...</a>
- */
 @Database(entities = {Article.class}, version = DATABASE_VERSION, exportSchema = true)
 public abstract class ArticleRoomDatabase extends RoomDatabase {
 

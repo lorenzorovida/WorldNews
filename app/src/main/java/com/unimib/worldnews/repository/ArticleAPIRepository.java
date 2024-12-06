@@ -3,7 +3,6 @@ package com.unimib.worldnews.repository;
 import static com.unimib.worldnews.util.Constants.FRESH_TIMEOUT;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -23,16 +22,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArticleRepository implements IArticleRepository {
+public class ArticleAPIRepository implements IArticleRepository {
 
-    private static final String TAG = ArticleRepository.class.getSimpleName();
+    private static final String TAG = ArticleAPIRepository.class.getSimpleName();
 
     private final Application application;
     private final ArticleAPIService articleAPIService;
     private final ArticleDAO articleDAO;
     private final ResponseCallback responseCallback;
 
-    public ArticleRepository(Application application, ResponseCallback responseCallback) {
+    public ArticleAPIRepository(Application application, ResponseCallback responseCallback) {
         this.application = application;
         this.articleAPIService = ServiceLocator.getInstance().getArticleAPIService();
         this.articleDAO = ServiceLocator.getInstance().getArticlesDB(application).articleDao();

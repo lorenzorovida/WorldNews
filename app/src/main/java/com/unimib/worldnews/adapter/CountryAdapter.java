@@ -18,7 +18,6 @@ import com.unimib.worldnews.model.Country;
 import com.unimib.worldnews.util.Constants;
 import com.unimib.worldnews.util.SharedPreferencesUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CountryAdapter extends ArrayAdapter<Country> {
@@ -55,8 +54,6 @@ public class CountryAdapter extends ArrayAdapter<Country> {
 
             Navigation.findNavController(view).navigate(R.id.action_pickCountryFragment_to_pickCategoriesFragment);
         });
-
-
 
         return convertView;
     }

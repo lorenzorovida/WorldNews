@@ -16,10 +16,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.model.Category;
 import com.unimib.worldnews.ui.welcome.fragment.PickCategoriesFragment;
-import com.unimib.worldnews.util.Constants;
-import com.unimib.worldnews.util.SharedPreferencesUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CategoriesAdapter extends ArrayAdapter<Category> {

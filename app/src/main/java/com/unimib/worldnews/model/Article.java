@@ -93,9 +93,7 @@ public class Article {
         this.publishedAtMillis = DateTimeUtil.getDateMillis(publishedAt);
     }
 
-    public void setPublishedAtMillis(Long publishedAtMillis) {
-
-    }
+    public void setPublishedAtMillis(Long publishedAtMillis) {}
 
     public Long getPublishedAtMillis() {
         return publishedAtMillis;

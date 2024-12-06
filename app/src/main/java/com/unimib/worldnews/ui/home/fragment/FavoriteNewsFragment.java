@@ -12,10 +12,9 @@ import android.view.ViewGroup;
 
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
-import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.repository.ArticleMockRepository;
-import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.ArticleAPIRepository;
 import com.unimib.worldnews.repository.IArticleRepository;
 import com.unimib.worldnews.util.ResponseCallback;
 
@@ -41,7 +40,7 @@ public class FavoriteNewsFragment extends Fragment implements ResponseCallback {
         if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
             articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
         } else {
-            articleRepository = new ArticleRepository(requireActivity().getApplication(), this);
+            articleRepository = new ArticleAPIRepository(requireActivity().getApplication(), this);
         }
     }
 

@@ -15,10 +15,4 @@ public interface ArticleAPIService {
             @Query(TOP_HEADLINES_COUNTRY_PARAMETER) String country,
             @Query(TOP_HEADLINES_PAGE_SIZE_PARAMETER) int pageSize,
             @Header("Authorization") String apiKey);
-
-    @GET(TOP_HEADLINES_ENDPOINT)
-    Call<ArticleAPIResponse> getArticles(
-            @Query(TOP_HEADLINES_COUNTRY_PARAMETER) String country,
-            @Query("apiKey") String apiKey);
-
 }
