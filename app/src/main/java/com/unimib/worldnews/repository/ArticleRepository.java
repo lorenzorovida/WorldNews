@@ -63,8 +63,8 @@ public class ArticleRepository implements ArticleCallback {
         articleLocalDataSource.deleteFavoriteArticles();
     }
 
-    public void onSuccessFromRemote(ArticleAPIResponse newsApiResponse, long lastUpdate) {
-        articleLocalDataSource.insertArticles(newsApiResponse.getArticles());
+    public void onSuccessFromRemote(ArticleAPIResponse articleApiResponse, long lastUpdate) {
+        articleLocalDataSource.insertArticles(articleApiResponse.getArticles());
     }
 
     public void onFailureFromRemote(Exception exception) {

@@ -50,6 +50,7 @@
     <string name="favorite">Favorites</string>
     <string name="delete_from_favorites">Delete from favorites</string>
     <string name="share">Share</string>
+    <string name="error_retireving_articles">There was an error in retrieving the articles</string>
 
 
 </resources>

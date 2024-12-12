@@ -63,8 +63,6 @@ public class PopularNewsFragment extends Fragment {
                         requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode)
                 );
 
-        // This is the way to create a ViewModel with custom parameters
-        // (see NewsViewModelFactory class for the implementation details)
         articleViewModel = new ViewModelProvider(
                 requireActivity(),
                 new ArticleViewModelFactory(articleRepository)).get(ArticleViewModel.class);
@@ -116,9 +114,14 @@ public class PopularNewsFragment extends Fragment {
                     Constants.SHARED_PREFERENCES_FILENAME, Constants.SHARED_PREFERNECES_LAST_UPDATE);
         }
 
+
         if (!NetworkUtil.isInternetAvailable(getContext())) {
             noInternetView.setVisibility(View.VISIBLE);
+            
+            //Trick to avoid doing the API call
+            lastUpdate = System.currentTimeMillis() + "";
         }
+
 
         articleViewModel.getArticles("us", Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
                 result -> {
@@ -130,10 +133,8 @@ public class PopularNewsFragment extends Fragment {
                         recyclerView.setVisibility(View.VISIBLE);
                         shimmerLinearLayout.setVisibility(View.GONE);
                     } else {
-                        //ErrorMessagesUtil errorMessagesUtil =
-                        //        new ErrorMessagesUtil(requireActivity().getApplication());
-                        Snackbar.make(view,
-                                       "error",
+                       Snackbar.make(view,
+                                       getString(R.string.error_retireving_articles),
                                 Snackbar.LENGTH_SHORT).show();
                     }
                 });
