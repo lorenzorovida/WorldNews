@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +20,7 @@ import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.Result;
 import com.unimib.worldnews.repository.ArticleRepository;
-import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.util.ServiceLocator;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModel;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModelFactory;
 import com.unimib.worldnews.util.Constants;
@@ -92,8 +91,11 @@ public class PopularNewsFragment extends Fragment {
                         new ArticleRecyclerAdapter.OnItemClickListener() {
                             @Override
                             public void onArticleItemClick(Article article) {
-                                Navigation.findNavController(view).navigate(R.id.action_popularNewsFragment_to_articleVisualizeFragment);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable(Constants.BUNDLE_KEY_CURRENT_ARTICLE,
+                                        article);
 
+                                Navigation.findNavController(view).navigate(R.id.action_popularNewsFragment_to_articleVisualizeFragment, bundle);
                             }
 
                             @Override

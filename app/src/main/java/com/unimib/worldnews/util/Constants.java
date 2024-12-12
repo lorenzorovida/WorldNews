@@ -90,7 +90,7 @@ public class Constants {
     public static final String TOP_HEADLINES_PAGE_SIZE_PARAMETER = "pageSize";
     public static final int TOP_HEADLINES_PAGE_SIZE_VALUE = 100;
 
-    public static final String REMOVED_ARTICLE_TITLE = "[Removed]";
+    public static final String BUNDLE_KEY_CURRENT_ARTICLE = "current_article";
 
     public static final int FRESH_TIMEOUT = 1000 * 60; // 1 minute in milliseconds
 

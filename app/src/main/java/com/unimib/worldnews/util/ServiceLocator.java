@@ -1,18 +1,16 @@
-package com.unimib.worldnews.service;
+package com.unimib.worldnews.util;
 
 import android.app.Application;
 
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.service.ArticleAPIService;
 import com.unimib.worldnews.source.ArticleLocalDataSource;
 import com.unimib.worldnews.source.ArticleMockDataSource;
 import com.unimib.worldnews.source.ArticleRemoteDataSource;
 import com.unimib.worldnews.source.BaseArticleLocalDataSource;
 import com.unimib.worldnews.source.BaseArticleRemoteDataSource;
-import com.unimib.worldnews.util.Constants;
-import com.unimib.worldnews.util.JSONParserUtils;
-import com.unimib.worldnews.util.SharedPreferencesUtils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

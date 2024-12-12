@@ -48,6 +48,8 @@
     <string name="popular">Popular</string>
     <string name="search">Search</string>
     <string name="favorite">Favorites</string>
+    <string name="delete_from_favorites">Delete from favorites</string>
+    <string name="share">Share</string>
 
 
 </resources>

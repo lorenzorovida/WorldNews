@@ -18,12 +18,9 @@ import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.Result;
 import com.unimib.worldnews.repository.ArticleRepository;
-import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.util.ServiceLocator;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModel;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModelFactory;
-import com.unimib.worldnews.util.Constants;
-import com.unimib.worldnews.util.NetworkUtil;
-import com.unimib.worldnews.util.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;

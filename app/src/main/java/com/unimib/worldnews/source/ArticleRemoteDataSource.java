@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.unimib.worldnews.model.ArticleAPIResponse;
 import com.unimib.worldnews.service.ArticleAPIService;
-import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.util.ServiceLocator;
 
 import retrofit2.Call;
 import retrofit2.Callback;

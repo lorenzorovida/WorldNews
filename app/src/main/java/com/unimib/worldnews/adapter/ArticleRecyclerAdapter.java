@@ -2,22 +2,27 @@ package com.unimib.worldnews.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
 import com.unimib.worldnews.model.Article;
+import com.unimib.worldnews.ui.home.HomeActivity;
 import com.unimib.worldnews.util.DateTimeUtil;
 
 import java.util.List;
@@ -41,6 +46,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         private final TextView textViewTime;
         private final CheckBox favoriteCheckbox;
         private final ImageView imageView;
+        private final Button menuButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -50,6 +56,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
             textViewTime = view.findViewById(R.id.textViewTime);
             favoriteCheckbox = view.findViewById(R.id.favoriteButton);
             imageView = view.findViewById(R.id.imageView);
+            menuButton = view.findViewById(R.id.buttonMenu);
 
             favoriteCheckbox.setOnClickListener(this);
             view.setOnClickListener(this);
@@ -69,6 +76,10 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
 
         public CheckBox getFavoriteCheckbox() {
             return favoriteCheckbox;
+        }
+
+        public Button getMenuButton() {
+            return menuButton;
         }
 
         public ImageView getImageView() { return  imageView; }
@@ -93,6 +104,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
     }
 
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
@@ -111,29 +123,37 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         viewHolder.getFavoriteCheckbox().setChecked(articleList.get(position).getLiked());
         viewHolder.getTextViewTime().setText(DateTimeUtil.getDateDelta(articleList.get(position).getPublishedAt()));
 
+        viewHolder.getMenuButton().setOnClickListener(view -> {
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(view.getContext());
+            bottomSheetDialog.setContentView(LayoutInflater.from(view.getContext()).inflate(R.layout.bottom_sheet_card_article, null));
+            bottomSheetDialog.findViewById(R.id.shareButton).setOnClickListener(view1 -> {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Check this article: " + articleList.get(position).getUrl());
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, "");
+                context.startActivity(shareIntent);
+
+                bottomSheetDialog.dismiss();
+            });
+
+            if (articleList.get(position).getLiked())
+                bottomSheetDialog.findViewById(R.id.deleteFavoritesButton).setVisibility(View.VISIBLE);
+            else
+                bottomSheetDialog.findViewById(R.id.deleteFavoritesButton).setVisibility(View.GONE);
+
+            bottomSheetDialog.show();
+        });
+
         Glide.with(context)
                 .load(articleList.get(position).getUrlToImage())
                 .placeholder(new ColorDrawable(context.getColor(R.color.placeholder_gray)))
                 .into(viewHolder.getImageView());
 
-        /*
-        viewHolder.getFavoriteCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Article currentArticle = articleList.get(viewHolder.getAdapterPosition());
-
-                currentArticle.setLiked(b);
-
-                ArticleRoomDatabase.getDatabase(viewHolder.getTextViewAuthor().getContext()).
-                        articleDao().updateArticle(currentArticle);
-            }
-        });
-        */
-
         if (!heartVisible) {
             viewHolder.getFavoriteCheckbox().setVisibility(View.INVISIBLE);
         }
-
     }
 
 
