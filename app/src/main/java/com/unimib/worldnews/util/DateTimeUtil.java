@@ -52,6 +52,10 @@ public class DateTimeUtil {
     }
 
     public static String getDateDelta(String dateTime) {
+        if (dateTime == null)
+        {
+            return "?";
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_PATTERN, Locale.getDefault());
         SimpleDateFormat outputDateFormat = null;
 

@@ -13,8 +13,11 @@ import java.util.List;
 
 @Dao
 public interface ArticleDAO {
-    @Query("SELECT * FROM Article ORDER BY published_at_millis DESC")
+    @Query("SELECT * FROM Article ORDER BY publishedAt DESC")
     List<Article> getAll();
+
+    @Query("SELECT * FROM article WHERE uid = :id")
+    Article getArticle(long id);
 
     @Query("SELECT * FROM Article WHERE liked = 1")
     List<Article> getLiked();
@@ -29,7 +32,10 @@ public interface ArticleDAO {
     List<Long> insertNewsList(List<Article> newsList);
 
     @Update
-    void updateArticle(Article article);
+    int updateArticle(Article article);
+
+    @Update
+    int updateListFavoriteArticles(List<Article> articles);
 
     @Delete
     void delete(Article user);

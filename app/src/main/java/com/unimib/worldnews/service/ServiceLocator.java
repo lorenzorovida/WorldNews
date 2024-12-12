@@ -2,8 +2,17 @@ package com.unimib.worldnews.service;
 
 import android.app.Application;
 
+import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
+import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.source.ArticleLocalDataSource;
+import com.unimib.worldnews.source.ArticleMockDataSource;
+import com.unimib.worldnews.source.ArticleRemoteDataSource;
+import com.unimib.worldnews.source.BaseArticleLocalDataSource;
+import com.unimib.worldnews.source.BaseArticleRemoteDataSource;
 import com.unimib.worldnews.util.Constants;
+import com.unimib.worldnews.util.JSONParserUtils;
+import com.unimib.worldnews.util.SharedPreferencesUtils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,12 +23,15 @@ public class ServiceLocator {
 
     private static volatile ServiceLocator INSTANCE = null;
 
-    private ServiceLocator() {
-    }
+    private ServiceLocator() {}
 
+    /**
+     * Returns an instance of ServiceLocator class.
+     * @return An instance of ServiceLocator.
+     */
     public static ServiceLocator getInstance() {
         if (INSTANCE == null) {
-            synchronized (ServiceLocator.class) {
+            synchronized(ServiceLocator.class) {
                 if (INSTANCE == null) {
                     INSTANCE = new ServiceLocator();
                 }
@@ -37,6 +49,10 @@ public class ServiceLocator {
             })
             .build();
 
+    /**
+     * Returns an instance of NewsApiService class using Retrofit.
+     * @return an instance of NewsApiService.
+     */
     public ArticleAPIService getArticleAPIService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.NEWS_API_BASE_URL)
@@ -45,7 +61,37 @@ public class ServiceLocator {
         return retrofit.create(ArticleAPIService.class);
     }
 
-    public ArticleRoomDatabase getArticlesDB(Application application) {
+    /**
+     * Returns an instance of NewsRoomDatabase class to manage Room database.
+     * @param application Param for accessing the global application state.
+     * @return An instance of NewsRoomDatabase.
+     */
+    public ArticleRoomDatabase getNewsDao(Application application) {
         return ArticleRoomDatabase.getDatabase(application);
+    }
+
+    /**
+     * Returns an instance of INewsRepositoryWithLiveData.
+     * @param application Param for accessing the global application state.
+     * @param debugMode Param to establish if the application is run in debug mode.
+     * @return An instance of INewsRepositoryWithLiveData.
+     */
+    public ArticleRepository getArticlesRepository(Application application, boolean debugMode) {
+        BaseArticleRemoteDataSource newsRemoteDataSource;
+        BaseArticleLocalDataSource newsLocalDataSource;
+        SharedPreferencesUtils sharedPreferencesUtil = new SharedPreferencesUtils(application);
+
+        if (debugMode) {
+            JSONParserUtils jsonParserUtil = new JSONParserUtils(application);
+            newsRemoteDataSource =
+                    new ArticleMockDataSource(jsonParserUtil);
+        } else {
+            newsRemoteDataSource =
+                    new ArticleRemoteDataSource(application.getString(R.string.news_api_key));
+        }
+
+        newsLocalDataSource = new ArticleLocalDataSource(getNewsDao(application), sharedPreferencesUtil);
+
+        return new ArticleRepository(newsRemoteDataSource, newsLocalDataSource);
     }
 }

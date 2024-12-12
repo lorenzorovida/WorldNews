@@ -3,6 +3,9 @@ package com.unimib.worldnews.ui.home.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,26 +19,27 @@ import com.google.android.material.snackbar.Snackbar;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.model.Article;
-import com.unimib.worldnews.repository.ArticleMockRepository;
-import com.unimib.worldnews.repository.ArticleAPIRepository;
-import com.unimib.worldnews.repository.IArticleRepository;
+import com.unimib.worldnews.model.Result;
+import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModel;
+import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModelFactory;
 import com.unimib.worldnews.util.Constants;
 import com.unimib.worldnews.util.NetworkUtil;
-import com.unimib.worldnews.util.ResponseCallback;
 import com.unimib.worldnews.util.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopularNewsFragment extends Fragment implements ResponseCallback {
+public class PopularNewsFragment extends Fragment {
 
     public static final String TAG = PopularNewsFragment.class.getName();
 
-    private static final int viewedElements = 20;
+    private static final int initialShimmerElements = 5;
     private ArticleRecyclerAdapter articleRecyclerAdapter;
     private List<Article> articleList;
-    private IArticleRepository articleRepository;
     private SharedPreferencesUtils sharedPreferencesUtils;
+    private ArticleViewModel articleViewModel;
 
     private LinearLayout shimmerLinearLayout;
     private RecyclerView recyclerView;
@@ -52,17 +56,27 @@ public class PopularNewsFragment extends Fragment implements ResponseCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
-            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
-        } else {
-            articleRepository = new ArticleAPIRepository(requireActivity().getApplication(), this);
-        }
+        sharedPreferencesUtils = new SharedPreferencesUtils(requireActivity().getApplication());
+
+        ArticleRepository articleRepository =
+                ServiceLocator.getInstance().getArticlesRepository(
+                        requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode)
+                );
+
+        // This is the way to create a ViewModel with custom parameters
+        // (see NewsViewModelFactory class for the implementation details)
+        articleViewModel = new ViewModelProvider(
+                requireActivity(),
+                new ArticleViewModelFactory(articleRepository)).get(ArticleViewModel.class);
+
+        articleList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_preference_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_popular_news, container, false);
 
         shimmerLinearLayout = view.findViewById(R.id.shimmerLinearLayout);
         noInternetView = view.findViewById(R.id.noInternetMessage);
@@ -71,10 +85,23 @@ public class PopularNewsFragment extends Fragment implements ResponseCallback {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         articleList = new ArrayList<>();
-        for (int i = 0; i < viewedElements; i++) articleList.add(Article.getSampleArticle());
+        for (int i = 0; i < initialShimmerElements; i++) articleList.add(Article.getSampleArticle());
 
         articleRecyclerAdapter =
-                new ArticleRecyclerAdapter(R.layout.card_article, articleList, true);
+                new ArticleRecyclerAdapter(R.layout.card_article, articleList, true,
+                        new ArticleRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onArticleItemClick(Article article) {
+                                Navigation.findNavController(view).navigate(R.id.action_popularNewsFragment_to_articleVisualizeFragment);
+
+                            }
+
+                            @Override
+                            public void onFavoriteButtonPressed(int position) {
+                                articleList.get(position).setLiked(!articleList.get(position).getLiked());
+                                articleViewModel.updateArticle(articleList.get(position));
+                            }
+                        });
 
         recyclerView.setAdapter(articleRecyclerAdapter);
 
@@ -87,36 +114,29 @@ public class PopularNewsFragment extends Fragment implements ResponseCallback {
                     Constants.SHARED_PREFERENCES_FILENAME, Constants.SHARED_PREFERNECES_LAST_UPDATE);
         }
 
-        articleRepository.fetchArticles("us", Constants.TOP_HEADLINES_PAGE_SIZE_VALUE, Long.parseLong(lastUpdate));
-
         if (!NetworkUtil.isInternetAvailable(getContext())) {
             noInternetView.setVisibility(View.VISIBLE);
         }
 
+        articleViewModel.getArticles("us", Long.parseLong(lastUpdate)).observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        int initialSize = this.articleList.size();
+                        this.articleList.clear();
+                        this.articleList.addAll(((Result.Success) result).getData().getArticles());
+                        articleRecyclerAdapter.notifyItemRangeInserted(initialSize, this.articleList.size());
+                        recyclerView.setVisibility(View.VISIBLE);
+                        shimmerLinearLayout.setVisibility(View.GONE);
+                    } else {
+                        //ErrorMessagesUtil errorMessagesUtil =
+                        //        new ErrorMessagesUtil(requireActivity().getApplication());
+                        Snackbar.make(view,
+                                       "error",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
         return view;
-    }
-
-    @Override
-    public void onSuccess(List<Article> articleList, long lastUpdate) {
-        sharedPreferencesUtils.writeStringData(Constants.SHARED_PREFERENCES_FILENAME,
-                Constants.SHARED_PREFERNECES_LAST_UPDATE,
-                String.valueOf(lastUpdate));
-        this.articleList.clear();
-        this.articleList.addAll(articleList);
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                articleRecyclerAdapter.notifyDataSetChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-                shimmerLinearLayout.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-        Snackbar.make(requireActivity().findViewById(android.R.id.content),
-                errorMessage, Snackbar.LENGTH_LONG).show();
     }
 
 }

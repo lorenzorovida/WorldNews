@@ -24,12 +24,18 @@ import java.util.List;
 
 public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecyclerAdapter.ViewHolder> {
 
+    public interface OnItemClickListener {
+        void onArticleItemClick(Article article);
+        void onFavoriteButtonPressed(int position);
+    }
+
     private int layout;
     private List<Article> articleList;
     private boolean heartVisible;
     private Context context;
+    private final OnItemClickListener onItemClickListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textViewTitle;
         private final TextView textViewAuthor;
         private final TextView textViewTime;
@@ -44,6 +50,9 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
             textViewTime = view.findViewById(R.id.textViewTime);
             favoriteCheckbox = view.findViewById(R.id.favoriteButton);
             imageView = view.findViewById(R.id.imageView);
+
+            favoriteCheckbox.setOnClickListener(this);
+            view.setOnClickListener(this);
         }
 
         public TextView getTextViewTitle() {
@@ -64,12 +73,23 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
 
         public ImageView getImageView() { return  imageView; }
 
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.favoriteButton) {
+                //setImageViewFavoriteNews(!newsList.get(getAdapterPosition()).isFavorite());
+                onItemClickListener.onFavoriteButtonPressed(getAdapterPosition());
+            } else {
+                onItemClickListener.onArticleItemClick(articleList.get(getAdapterPosition()));
+            }
+        }
+
     }
 
-    public ArticleRecyclerAdapter(int layout, List<Article> articleList, boolean heartVisible) {
+    public ArticleRecyclerAdapter(int layout, List<Article> articleList, boolean heartVisible, OnItemClickListener onItemClickListener) {
         this.layout = layout;
         this.articleList = articleList;
         this.heartVisible = heartVisible;
+        this.onItemClickListener = onItemClickListener;
     }
 
 
@@ -96,6 +116,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
                 .placeholder(new ColorDrawable(context.getColor(R.color.placeholder_gray)))
                 .into(viewHolder.getImageView());
 
+        /*
         viewHolder.getFavoriteCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -107,8 +128,9 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
                         articleDao().updateArticle(currentArticle);
             }
         });
+        */
 
-        if (heartVisible == false) {
+        if (!heartVisible) {
             viewHolder.getFavoriteCheckbox().setVisibility(View.INVISIBLE);
         }
 

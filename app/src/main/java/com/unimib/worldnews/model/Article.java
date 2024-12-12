@@ -136,6 +136,9 @@ public class Article {
         return Objects.hash(author, title, source, description, url, urlToImage, publishedAt, content);
     }
 
+    /*
+     * Used to fill the shimmer list
+     */
     public static Article getSampleArticle() {
         Article sample = new Article();
         sample.setTitle("Not so long title sample");
@@ -143,12 +146,4 @@ public class Article {
         return sample;
     }
 
-    public static void filterArticles(List<Article> articleList) {
-        for (int i = 0; i < articleList.size(); i++) {
-            if (articleList.get(i).getTitle().equals(Constants.REMOVED_ARTICLE_TITLE)) {
-                articleList.remove(i);
-                i--;
-            }
-        }
-    }
 }

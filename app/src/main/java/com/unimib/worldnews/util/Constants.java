@@ -93,4 +93,8 @@ public class Constants {
     public static final String REMOVED_ARTICLE_TITLE = "[Removed]";
 
     public static final int FRESH_TIMEOUT = 1000 * 60; // 1 minute in milliseconds
+
+    public static final String RETROFIT_ERROR = "retrofit_error";
+    public static final String API_KEY_ERROR = "api_key_error";
+    public static final String UNEXPECTED_ERROR = "unexpected_error";
 }

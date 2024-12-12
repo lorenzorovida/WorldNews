@@ -14,7 +14,15 @@
         android:id="@+id/popularNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.PopularNewsFragment"
         android:label="@string/popular"
-        tools:layout="@layout/fragment_popular_news" />
+        tools:layout="@layout/fragment_popular_news" >
+        <action
+            android:id="@+id/action_popularNewsFragment_to_articleVisualizeFragment"
+            app:destination="@id/articleVisualizeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/searchNewsFragment"
         android:name="com.unimib.worldnews.ui.home.fragment.SearchNewsFragment"
@@ -25,4 +33,9 @@
         android:name="com.unimib.worldnews.ui.home.fragment.FavoriteNewsFragment"
         android:label="@string/favorite"
         tools:layout="@layout/fragment_favorite_news" />
+    <fragment
+        android:id="@+id/articleVisualizeFragment"
+        android:name="com.unimib.worldnews.ui.home.fragment.ArticleVisualizeFragment"
+        android:label="fragment_article_visualize"
+        tools:layout="@layout/fragment_article_visualize" />
 </navigation>

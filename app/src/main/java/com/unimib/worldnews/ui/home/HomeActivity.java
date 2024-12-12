@@ -16,6 +16,8 @@ import com.unimib.worldnews.database.ArticleRoomDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class HomeActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().
                 findFragmentById(R.id.fragmentContainerView);
 
-        NavController navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
 
@@ -39,5 +41,11 @@ public class HomeActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNav, navController);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp();
     }
 }

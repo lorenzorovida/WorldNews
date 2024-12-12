@@ -3,6 +3,7 @@ package com.unimib.worldnews.ui.home.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,22 +11,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.snackbar.Snackbar;
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.model.Article;
-import com.unimib.worldnews.repository.ArticleMockRepository;
-import com.unimib.worldnews.repository.ArticleAPIRepository;
-import com.unimib.worldnews.repository.IArticleRepository;
-import com.unimib.worldnews.util.ResponseCallback;
+import com.unimib.worldnews.model.Result;
+import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.service.ServiceLocator;
+import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModel;
+import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModelFactory;
+import com.unimib.worldnews.util.Constants;
+import com.unimib.worldnews.util.NetworkUtil;
+import com.unimib.worldnews.util.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoriteNewsFragment extends Fragment implements ResponseCallback {
+public class FavoriteNewsFragment extends Fragment {
 
-    private IArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
     private List<Article> articleList;
     private ArticleRecyclerAdapter adapter;
+    private ArticleViewModel articleViewModel;
+    private RecyclerView recyclerView;
+    private CircularProgressIndicator circularProgressIndicator;
 
     public FavoriteNewsFragment() {
         // Required empty public constructor
@@ -35,13 +45,18 @@ public class FavoriteNewsFragment extends Fragment implements ResponseCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        articleList = new ArrayList<>();
+        ArticleRepository articleRepository =
+                ServiceLocator.getInstance().getArticlesRepository(
+                        requireActivity().getApplication(),
+                        requireActivity().getApplication().getResources().getBoolean(R.bool.debug_mode)
+                );
 
-        if (requireActivity().getResources().getBoolean(R.bool.debug_mode)) {
-            articleRepository = new ArticleMockRepository(requireActivity().getApplication(), this);
-        } else {
-            articleRepository = new ArticleAPIRepository(requireActivity().getApplication(), this);
-        }
+
+        articleViewModel = new ViewModelProvider(
+                requireActivity(),
+                new ArticleViewModelFactory(articleRepository)).get(ArticleViewModel.class);
+
+        articleList = new ArrayList<>();
     }
 
     @Override
@@ -49,33 +64,40 @@ public class FavoriteNewsFragment extends Fragment implements ResponseCallback {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite_news, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        circularProgressIndicator = view.findViewById(R.id.circularProgressIndicator);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        articleRepository.getFavoriteArticles();
+        adapter =
+                new ArticleRecyclerAdapter(R.layout.card_article, articleList, false,
+                        new ArticleRecyclerAdapter.OnItemClickListener() {
+                            @Override
+                            public void onArticleItemClick(Article article) {
 
-        adapter = new ArticleRecyclerAdapter(R.layout.card_article, articleList, false);
+                            }
+
+                            @Override
+                            public void onFavoriteButtonPressed(int position) {}
+                        });
 
         recyclerView.setAdapter(adapter);
 
+        articleViewModel.getFavoriteArticlesLiveData().observe(getViewLifecycleOwner(),
+                result -> {
+                    if (result.isSuccess()) {
+                        int initialSize = this.articleList.size();
+                        this.articleList.clear();
+                        this.articleList.addAll(((Result.Success) result).getData().getArticles());
+                        adapter.notifyItemRangeInserted(initialSize, this.articleList.size());
+                        recyclerView.setVisibility(View.VISIBLE);
+                        circularProgressIndicator.setVisibility(View.GONE);
+                    } else {
+                        Snackbar.make(view,
+                                "error",
+                                Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+
         return view;
-
-    }
-
-    @Override
-    public void onSuccess(List<Article> articlesList, long lastUpdate) {
-        this.articleList.clear();
-        this.articleList.addAll(articlesList);
-        requireActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    public void onFailure(String errorMessage) {
-
     }
 }

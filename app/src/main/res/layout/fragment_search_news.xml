@@ -1,8 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<!-- NestedScrollingChild goes here (NestedScrollView, RecyclerView, etc.). -->
+<androidx.core.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:layout_behavior="@string/searchbar_scrolling_view_behavior">
+    <!-- Screen content goes here. -->
+</androidx.core.widget.NestedScrollView>
 
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.search.SearchBar
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hint" />
+</com.google.android.material.appbar.AppBarLayout>
+
+<com.google.android.material.search.SearchView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:hint="Hint"
+    app:layout_anchor="@id/search_bar">
+
+    <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+
+</com.google.android.material.search.SearchView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

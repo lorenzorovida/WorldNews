@@ -9,6 +9,10 @@ public class ArticleAPIResponse {
 
     public ArticleAPIResponse(){}
 
+    public ArticleAPIResponse(List<Article> articles) {
+        this.articles = articles;
+    }
+
     public String getStatus() {
         return status;
     }
