@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.Result;
-import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.article.ArticleRepository;
 
 
 public class ArticleViewModel extends ViewModel {

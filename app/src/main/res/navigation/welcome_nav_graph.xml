@@ -17,6 +17,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"  />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_loginFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
     </fragment>
     <fragment
         android:id="@+id/pickCountryFragment"
@@ -36,4 +46,23 @@
         android:name="com.unimib.worldnews.ui.welcome.fragment.PickCategoriesFragment"
         tools:layout="@layout/fragment_pick_categories"
         android:label="PickCountryFragment" />
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.unimib.worldnews.ui.welcome.fragment.SignupFragment"
+        tools:layout="@layout/fragment_signup"
+        android:label="SignupFragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_pickCountryFragment"
+            app:destination="@id/pickCountryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.unimib.worldnews.ui.home.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home" />
 </navigation>

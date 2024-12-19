@@ -4,13 +4,19 @@ import android.app.Application;
 
 import com.unimib.worldnews.R;
 import com.unimib.worldnews.database.ArticleRoomDatabase;
-import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.article.ArticleRepository;
+import com.unimib.worldnews.repository.user.IUserRepository;
+import com.unimib.worldnews.repository.user.UserRepository;
 import com.unimib.worldnews.service.ArticleAPIService;
-import com.unimib.worldnews.source.ArticleLocalDataSource;
-import com.unimib.worldnews.source.ArticleMockDataSource;
-import com.unimib.worldnews.source.ArticleRemoteDataSource;
-import com.unimib.worldnews.source.BaseArticleLocalDataSource;
-import com.unimib.worldnews.source.BaseArticleRemoteDataSource;
+import com.unimib.worldnews.source.article.ArticleLocalDataSource;
+import com.unimib.worldnews.source.article.ArticleMockDataSource;
+import com.unimib.worldnews.source.article.ArticleRemoteDataSource;
+import com.unimib.worldnews.source.article.BaseArticleLocalDataSource;
+import com.unimib.worldnews.source.article.BaseArticleRemoteDataSource;
+import com.unimib.worldnews.source.user.BaseUserAuthenticationRemoteDataSource;
+import com.unimib.worldnews.source.user.BaseUserDataRemoteDataSource;
+import com.unimib.worldnews.source.user.UserAuthenticationFirebaseDataSource;
+import com.unimib.worldnews.source.user.UserFirebaseDataSource;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -91,5 +97,21 @@ public class ServiceLocator {
         newsLocalDataSource = new ArticleLocalDataSource(getNewsDao(application), sharedPreferencesUtil);
 
         return new ArticleRepository(newsRemoteDataSource, newsLocalDataSource);
+    }
+
+    public IUserRepository getUserRepository(Application application) {
+        SharedPreferencesUtils sharedPreferencesUtil = new SharedPreferencesUtils(application);
+
+        BaseUserAuthenticationRemoteDataSource userRemoteAuthenticationDataSource =
+                new UserAuthenticationFirebaseDataSource();
+
+        BaseUserDataRemoteDataSource userDataRemoteDataSource =
+                new UserFirebaseDataSource(sharedPreferencesUtil);
+
+        BaseArticleLocalDataSource newsLocalDataSource =
+                new ArticleLocalDataSource(getNewsDao(application), sharedPreferencesUtil);
+
+        return new UserRepository(userRemoteAuthenticationDataSource,
+                userDataRemoteDataSource, newsLocalDataSource);
     }
 }

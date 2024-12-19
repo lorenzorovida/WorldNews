@@ -42,12 +42,16 @@
     <string name="error_password_login">The password must have at least 8 characters</string>
     <string name="error_retrieving_news">There was an error retrieving the news</string>
     <string name="error_no_internet">No internet connection</string>
+    <string name="error_collision_user">This email is already registered</string>
+    <string name="error_unexpected">Unexpected error</string>
 
 
     <string name="preferences">For me</string>
     <string name="popular">Popular</string>
     <string name="search">Search</string>
     <string name="favorite">Favorites</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="signup">Signup</string>
     <string name="delete_from_favorites">Delete from favorites</string>
     <string name="share">Share</string>
     <string name="error_retireving_articles">There was an error in retrieving the articles</string>

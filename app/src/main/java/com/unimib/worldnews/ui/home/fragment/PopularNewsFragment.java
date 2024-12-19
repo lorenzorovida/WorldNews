@@ -19,7 +19,7 @@ import com.unimib.worldnews.R;
 import com.unimib.worldnews.adapter.ArticleRecyclerAdapter;
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.Result;
-import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.article.ArticleRepository;
 import com.unimib.worldnews.util.ServiceLocator;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModel;
 import com.unimib.worldnews.ui.home.viewmodel.ArticleViewModelFactory;
@@ -128,7 +128,7 @@ public class PopularNewsFragment extends Fragment {
                     if (result.isSuccess()) {
                         int initialSize = this.articleList.size();
                         this.articleList.clear();
-                        this.articleList.addAll(((Result.Success) result).getData().getArticles());
+                        this.articleList.addAll(((Result.ArticleSuccess) result).getData().getArticles());
                         articleRecyclerAdapter.notifyItemRangeInserted(initialSize, this.articleList.size());
                         recyclerView.setVisibility(View.VISIBLE);
                         shimmerLinearLayout.setVisibility(View.GONE);

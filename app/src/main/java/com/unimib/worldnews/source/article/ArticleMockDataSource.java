@@ -1,12 +1,10 @@
-package com.unimib.worldnews.source;
+package com.unimib.worldnews.source.article;
 
 import static com.unimib.worldnews.util.Constants.API_KEY_ERROR;
 
 import com.unimib.worldnews.model.ArticleAPIResponse;
 import com.unimib.worldnews.util.Constants;
 import com.unimib.worldnews.util.JSONParserUtils;
-
-import org.json.JSONException;
 
 import java.io.IOException;
 

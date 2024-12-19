@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.unimib.worldnews.repository.ArticleRepository;
+import com.unimib.worldnews.repository.article.ArticleRepository;
 
 /**
  * Custom ViewModelProvider to be able to have a custom constructor

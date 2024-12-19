@@ -1,4 +1,4 @@
-package com.unimib.worldnews.source;
+package com.unimib.worldnews.source.article;
 
 import static com.unimib.worldnews.util.Constants.API_KEY_ERROR;
 import static com.unimib.worldnews.util.Constants.RETROFIT_ERROR;

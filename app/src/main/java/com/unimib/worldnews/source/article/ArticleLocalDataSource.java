@@ -1,4 +1,4 @@
-package com.unimib.worldnews.source;
+package com.unimib.worldnews.source.article;
 
 import static com.unimib.worldnews.util.Constants.UNEXPECTED_ERROR;
 

@@ -1,13 +1,14 @@
-package com.unimib.worldnews.source;
+package com.unimib.worldnews.source.article;
 
 import com.unimib.worldnews.model.Article;
+import com.unimib.worldnews.repository.article.ArticleResponseCallback;
 
 import java.util.List;
 
 public abstract class BaseArticleLocalDataSource {
-    protected ArticleCallback articleCallback;
+    protected ArticleResponseCallback articleCallback;
 
-    public void setArticleCallback(ArticleCallback articleCallback) {
+    public void setArticleCallback(ArticleResponseCallback articleCallback) {
         this.articleCallback = articleCallback;
     }
 

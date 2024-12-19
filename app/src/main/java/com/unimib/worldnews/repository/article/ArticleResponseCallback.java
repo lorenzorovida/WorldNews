@@ -1,11 +1,11 @@
-package com.unimib.worldnews.source;
+package com.unimib.worldnews.repository.article;
 
 import com.unimib.worldnews.model.Article;
 import com.unimib.worldnews.model.ArticleAPIResponse;
 
 import java.util.List;
 
-public interface ArticleCallback {
+public interface ArticleResponseCallback {
     void onSuccessFromRemote(ArticleAPIResponse articleAPIResponse, long lastUpdate);
     void onFailureFromRemote(Exception exception);
     void onSuccessFromLocal(List<Article> articlesList);
